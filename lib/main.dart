@@ -22,7 +22,8 @@ class HomePage extends StatelessWidget {
               // height: MediaQuery.of(context).size.height,
                width:200,
               height: 500,
-              color: Colors.black,
+              color: Colors.teal,
+             
           
           
               child: Column(
@@ -72,7 +73,7 @@ class HomePage extends StatelessWidget {
                 gradient: LinearGradient(colors: [Colors.yellow, Colors.red]),
                 //  shape: BoxShape.circle,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                boxShadow: [
+                boxShadow: [  
                   BoxShadow(
                     color: Colors.grey,
                     blurRadius: 5,
