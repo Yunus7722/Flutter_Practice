@@ -12,6 +12,11 @@ void main() {
       theme: ThemeData(
         primarySwatch: Colors.teal,
       ),
+      routes: {
+        '/home':(context) => HomePage(),
+        '/login' : (context) => LoginPage()
+        
+      },
     ),
   );
 }
