@@ -39,13 +39,30 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text("Awesome App"),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          // child: data !=null ? SingleChildScrollView(child: Card()) : Center(child: CircularProgressIndicator()),
+        body: Stack(
 
-          child: SingleChildScrollView(
-              child:ChangeNameCard(myText: myText, myTitle: myTitle,titleController: _titleController, nameController: _nameController)),
-        ),
+          fit: StackFit.expand,
+          children: [
+             Container(
+            child: Image.asset("assets/s2.jpg",
+            fit: BoxFit.cover,
+            color: Colors.black.withOpacity(0.4),
+            colorBlendMode: BlendMode.darken,
+            ),
+            
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            // child: data !=null ? SingleChildScrollView(child: Card()) : Center(child: CircularProgressIndicator()),
+
+            child: SingleChildScrollView(
+                child: ChangeNameCard(
+                    myText: myText,
+                    myTitle: myTitle,
+                    titleController: _titleController,
+                    nameController: _nameController)),
+          ),
+        ]),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton(
           onPressed: () {

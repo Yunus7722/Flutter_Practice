@@ -1,4 +1,5 @@
 import 'package:firstflutter/Pages/HomePage.dart';
+import 'package:firstflutter/utils/Constants.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -80,7 +81,11 @@ class _LoginPageState extends State<LoginPage> {
                     height: 45,
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/home");
+
+                        // Constants.prefs.setBool("loggedIn", true);
+                        // Navigator.pushReplacementNamed(context, "/home");
+                       Navigator.pushNamed(context, "/home");
+
                       },
                       child: Text(
                         "Login",

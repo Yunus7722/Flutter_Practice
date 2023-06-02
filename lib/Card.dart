@@ -19,10 +19,11 @@ class ChangeNameCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       // color: Color.fromARGB(255, 255, 102, 64),
-
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+    
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceAround,
-
+    
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(20),
@@ -81,6 +82,9 @@ class ChangeNameCard extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(30)))),
             ),
+          ),
+          SizedBox(
+            height: 7,
           )
         ],
       ),
