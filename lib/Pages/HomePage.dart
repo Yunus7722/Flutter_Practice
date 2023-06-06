@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:firstflutter/Card.dart';
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
 
 // import '../Card.dart';
 import '../MyDrawer.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,22 +18,26 @@ class _HomePageState extends State<HomePage> {
   TextEditingController _titleController = TextEditingController();
   var myText = "Change My Name";
   var myTitle = "Title";
-  // var myUrl = "https://api.chucknorris.io/jokes/random";
-  // var data ;
+  var myUrl = "https://jsonplaceholder.typicode.com/photos";
+  var data;
+
+  final dio = Dio();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getApiData();
+    getApiData();
   }
 
-  //  getApiData() async {
-
-  //   var res = await http.get(Uri.parse(myUrl));
-  //   print(res);
-
-  // }
+  getApiData() async {
+    var res = await dio.get(myUrl);
+    // print(res);
+    data = res.data;
+    // data = jsonDecode(res);
+    setState(() {});
+    print(data);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,30 +46,42 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text("Awesome App"),
         ),
-        body: Stack(
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: data != null
+              ? ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ListTile(
+                        title: Text(data[index]['title']),
+                        leading: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            // shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(data[index]['url']),
+                            ),
+                          ),
+                        ),
+                        subtitle: Text('ID : ${data[index]['id']}'),
+                      ),
+                    );
+                  },
+                  itemCount: data.length,
+                )
+              : Center(child: CircularProgressIndicator()),
 
-          fit: StackFit.expand,
-          children: [
-             Container(
-            child: Image.asset("assets/s2.jpg",
-            fit: BoxFit.cover,
-            color: Colors.black.withOpacity(0.4),
-            colorBlendMode: BlendMode.darken,
-            ),
-            
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            // child: data !=null ? SingleChildScrollView(child: Card()) : Center(child: CircularProgressIndicator()),
-
-            child: SingleChildScrollView(
-                child: ChangeNameCard(
-                    myText: myText,
-                    myTitle: myTitle,
-                    titleController: _titleController,
-                    nameController: _nameController)),
-          ),
-        ]),
+          // child: SingleChildScrollView(
+          //     child: ChangeNameCard(
+          //         myText: myText,
+          //         myTitle: myTitle,
+          //         titleController: _titleController,
+          //         nameController: _nameController)),
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
