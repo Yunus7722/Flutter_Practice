@@ -1,3 +1,6 @@
+import 'package:firstflutter/model/user_name.dart';
+import 'package:firstflutter/model/user_pic.dart';
+
 class User {
   final String gender;
   final String email;
@@ -21,28 +24,3 @@ class User {
 
 }
 
-class UserPic{
-  final String thumbnail;
-  final String large;
-  final String medium;
-  UserPic(
-    {
-      required this.thumbnail,
-      required this.large,
-      required this.medium,
-    }
-  );
-}
-
-class UserName{
-  final String title;
-  final String first;
-  final String last;
-
-  UserName({
-    required this.title,
-    required this.first,
-    required this.last,
-
-  });
-}

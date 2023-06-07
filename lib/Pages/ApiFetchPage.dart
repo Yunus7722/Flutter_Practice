@@ -1,18 +1,30 @@
 import 'dart:convert';
 
+import 'package:firstflutter/services/user_api.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import '../model/user.dart';
+import '../model/user_name.dart';
+import '../model/user_pic.dart';
 
 class ApiFetch extends StatefulWidget {
   const ApiFetch({super.key});
+
 
   @override
   State<ApiFetch> createState() => _ApiFetchState();
 }
 
 class _ApiFetchState extends State<ApiFetch> {
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      fetchUsers();
+    });
+  }
 
   List<User> users = [];
   @override
@@ -60,53 +72,60 @@ class _ApiFetchState extends State<ApiFetch> {
         );
       },),
       floatingActionButton: FloatingActionButton(
-        onPressed: fetchApi,
+        onPressed: fetchUsers,
         child: Icon(Icons.refresh),
       ),
       
     );
   }
 
-  void fetchApi() async{
-    print("pressed");
-    final dio = Dio();
-    const url = "https://randomuser.me/api/?results=20";
-    final resp = await dio.get(url);
-    final body = resp.data;
-    // final json = jsonDecode(body);
-    //w have to take these results out of setstate
-    final results = body['results'] as List<dynamic>; //results will be in string format
-
-    //we have to transform to user type from string type to List type
-    //indiUser = individual user from results into map
-    final transformed = results.map((indiUser){
-
-      final pictures = UserPic(
-        thumbnail: indiUser['picture']['thumbnail'], 
-        large: indiUser['picture']['large'], 
-        medium: indiUser['picture']['medium'], 
-        );
-
-      final name = UserName(
-        title: indiUser['name']['title'],
-        first: indiUser['name']['first'],
-        last: indiUser['name']['last'],
-      );
-        return User(
-          gender: indiUser['gender'],
-          email: indiUser['email'],
-          phone: indiUser['phone'],
-          cell: indiUser['cell'],
-          nat: indiUser['nat'],
-          name: name,
-          pictures: pictures,
-        );
-    }).toList();
-
+  Future<void> fetchUsers() async{
+    final response = await UserApi.fetchApi();
     setState(() {
-        users = transformed;
+      users = response;
     });
-    // print(resp);
-    // print("data fetched");
   }
+
+  // void fetchApi() async{
+  //   print("pressed");
+  //   final dio = Dio();
+  //   const url = "https://randomuser.me/api/?results=20";
+  //   final resp = await dio.get(url);
+  //   final body = resp.data;
+  //   // final json = jsonDecode(body);
+  //   //w have to take these results out of setstate
+  //   final results = body['results'] as List<dynamic>; //results will be in string format
+
+  //   //we have to transform to user type from string type to List type
+  //   //indiUser = individual user from results into map
+  //   final transformed = results.map((indiUser){
+
+  //     final pictures = UserPic(
+  //       thumbnail: indiUser['picture']['thumbnail'], 
+  //       large: indiUser['picture']['large'], 
+  //       medium: indiUser['picture']['medium'], 
+  //       );
+
+  //     final name = UserName(
+  //       title: indiUser['name']['title'],
+  //       first: indiUser['name']['first'],
+  //       last: indiUser['name']['last'],
+  //     );
+  //       return User(
+  //         gender: indiUser['gender'],
+  //         email: indiUser['email'],
+  //         phone: indiUser['phone'],
+  //         cell: indiUser['cell'],
+  //         nat: indiUser['nat'],
+  //         name: name,
+  //         pictures: pictures,
+  //       );
+  //   }).toList();
+
+  //   setState(() {
+  //       users = transformed;
+  //   });
+  //   // print(resp);
+  //   // print("data fetched");
+  // }
 }
