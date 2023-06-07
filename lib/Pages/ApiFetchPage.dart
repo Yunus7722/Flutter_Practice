@@ -25,9 +25,20 @@ class _ApiFetchState extends State<ApiFetch> {
         itemBuilder: (context, index) {
           final user = users[index];
           final email = user['email'];
-        return ListTile(
-          title: Text(email),
-          leading: CircleAvatar(child: Text('${index+1}')),
+          final firstName = user['name']['first'];
+          final nameTitle = user['name']['title'];
+          final lastName = user['name']['last'];
+          final thumbnail = user['picture']['thumbnail'];
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            title: Text('${nameTitle}  ${firstName}  ${lastName}'),
+            // leading: CircleAvatar(child: Text('${index+1}')),
+            leading: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: Image.network(thumbnail)),
+        
+          ),
         );
       },),
       floatingActionButton: FloatingActionButton(onPressed: fetchApi),
@@ -37,7 +48,7 @@ class _ApiFetchState extends State<ApiFetch> {
   void fetchApi() async{
     print("pressed");
     final dio = Dio();
-    const url = "https://randomuser.me/api/?results=10";
+    const url = "https://randomuser.me/api/?results=20";
     final resp = await dio.get(url);
     final body = resp.data;
     // final json = jsonDecode(body);
