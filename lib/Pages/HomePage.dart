@@ -39,6 +39,13 @@ class _HomePageState extends State<HomePage> {
     print(data);
   }
 
+  onRefresh() async{
+    getApiData();
+    setState(() {
+      
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,47 +53,52 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text("Awesome App"),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: data != null
-              ? ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ListTile(
-                        title: Text(data[index]['title']),
-                        leading: Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            // shape: BoxShape.circle,
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(data[index]['url']),
+        body: Container(
+          height: (MediaQuery.of(context).size.height),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: data != null
+                ? ListView.builder(
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ListTile(
+                          title: Text(data[index]['title']),
+                          leading: Container(
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              // shape: BoxShape.circle,
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(data[index]['url']),
+                              ),
                             ),
                           ),
+                          subtitle: Text('ID : ${data[index]['id']}'),
                         ),
-                        subtitle: Text('ID : ${data[index]['id']}'),
-                      ),
-                    );
-                  },
-                  itemCount: data.length,
-                )
-              : Center(child: CircularProgressIndicator()),
-
-          // child: SingleChildScrollView(
-          //     child: ChangeNameCard(
-          //         myText: myText,
-          //         myTitle: myTitle,
-          //         titleController: _titleController,
-          //         nameController: _nameController)),
+                      );
+                    },
+                    itemCount: data.length,
+                  )
+                : Center(child: CircularProgressIndicator()),
+        
+            // child: SingleChildScrollView(
+            //     child: ChangeNameCard(
+            //         myText: myText,
+            //         myTitle: myTitle,
+            //         titleController: _titleController,
+            //         nameController: _nameController)),
+          ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            myText = _nameController.text;
-            myTitle = _titleController.text;
+            // myText = _nameController.text;
+            // myTitle = _titleController.text;
+            
+            onRefresh();
             setState(() {});
           },
           backgroundColor: Color.fromARGB(255, 4, 199, 199),

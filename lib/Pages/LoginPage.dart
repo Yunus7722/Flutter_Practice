@@ -84,7 +84,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         // Constants.prefs.setBool("loggedIn", true);
                         // Navigator.pushReplacementNamed(context, "/home");
-                       Navigator.pushNamed(context, "/home");
+                      //  Navigator.pushNamed(context, "/home");
+                       Navigator.pushNamed(context, "/apifetch");
 
                       },
                       child: Text(

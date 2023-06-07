@@ -1,3 +1,4 @@
+import 'package:firstflutter/Pages/ApiFetchPage.dart';
 import 'package:firstflutter/Pages/LoginPage.dart';
 import 'package:firstflutter/utils/Constants.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,8 @@ void main()  {
       ),
       routes: {
         '/home':(context) => HomePage(),
-        '/login' : (context) => LoginPage()
+        '/login' : (context) => LoginPage(),
+        '/apifetch' :(context) => ApiFetch()
         
       },
     ),
