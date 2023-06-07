@@ -37,6 +37,7 @@ class _ApiFetchState extends State<ApiFetch> {
             leading: ClipRRect(
               borderRadius: BorderRadius.circular(30),
               child: Image.network(thumbnail)),
+              subtitle: Text(email),
         
           ),
         );
