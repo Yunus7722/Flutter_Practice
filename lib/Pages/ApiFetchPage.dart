@@ -41,7 +41,11 @@ class _ApiFetchState extends State<ApiFetch> {
           ),
         );
       },),
-      floatingActionButton: FloatingActionButton(onPressed: fetchApi),
+      floatingActionButton: FloatingActionButton(
+        onPressed: fetchApi,
+        child: Icon(Icons.refresh),
+      ),
+      
     );
   }
 
